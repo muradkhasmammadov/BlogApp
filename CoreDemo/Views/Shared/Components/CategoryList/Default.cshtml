@@ -1,0 +1,19 @@
+﻿@using DataAccessLayer.Concrete;
+@model IEnumerable<EntityLayer.Concrete.Category>
+<div class="tech-btm">
+    <h4>Categories</h4>
+    <ul class="list-group single">
+        @foreach (var item in Model)
+        {
+            Context c = new Context();
+            var category = item.CategoryName;
+            var categoryCount = c.BLogs.Where(x => x.Category.CategoryName == category).Count();
+            <a href="~/Blog/BlogByCategory/@item.CategoryID">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                    @category
+                <span class="badge badge-primary badge-pill">@categoryCount</span>
+            </li>
+            </a>
+        }
+    </ul>
+</div>

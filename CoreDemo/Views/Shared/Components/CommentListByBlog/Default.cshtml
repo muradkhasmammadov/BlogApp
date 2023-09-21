@@ -1,0 +1,25 @@
+﻿@model IEnumerable<EntityLayer.Concrete.Comment>
+<div class="comment-top">
+    <h4>Comments</h4>
+
+    @foreach (var item in Model)
+    {
+        <div class="media">
+            <img src="@item.CommentUserImage" alt="" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+            <div class="media-body">
+                <h5 class="mt-0">@item.CommentUserName</h5>
+                <p>
+                    @item.CommentContent
+                </p>
+            </div>
+        </div>
+    }
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <p>
+            <mark>
+                You need to sign in first to add comment!
+            </mark>
+        </p>
+    }
+</div>

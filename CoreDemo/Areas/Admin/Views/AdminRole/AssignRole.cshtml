@@ -1,0 +1,22 @@
+﻿@using CoreDemo.Areas.Admin.Models
+@model List<RoleAssignViewModel>
+@{
+    ViewData["Title"] = "AssignRole";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h3>Assign Role</h3>
+
+<form method="post">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <div class="form-check">
+            <input type="hidden" asp-for="@Model[i].RoleId" />
+            <input type="hidden" asp-for="@Model[i].Name" />
+            <input type="checkbox" asp-for="@Model[i].Exist" class="form-check-input" />
+            <label class="form-check-label" for="@Model[i].Exist">@Model[i].Name</label>
+        </div>
+    }
+    <button class="btn btn-info mt-2"> Save Changes </button>
+    <a href="/Admin/AdminRole/UserRoleList/" class="btn btn-primary mt-2">Back</a>
+</form>

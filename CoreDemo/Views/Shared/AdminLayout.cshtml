@@ -1,0 +1,106 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin</title>
+
+    <link href="~/inspinia-gh-pages/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/inspinia-gh-pages/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/inspinia-gh-pages/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="~/inspinia-gh-pages/css/animate.css" rel="stylesheet">
+    <link href="~/inspinia-gh-pages/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        @await Html.PartialAsync("~/Views/Admin/AdminNavbarPartial.cshtml")
+
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                        <form role="search" class="navbar-form-custom" action="search_results.html">
+                            <div class="form-group">
+                                <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <a href="~/Login/LogOut/">
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+            <div class="wrapper wrapper-content animated fadeInRight">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="~/inspinia-gh-pages/js/jquery-3.1.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/inspinia-gh-pages/js/popper.min.js"></script>
+    <script src="~/inspinia-gh-pages/js/bootstrap.js"></script>
+    <script src="~/inspinia-gh-pages/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="~/inspinia-gh-pages/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Peity -->
+    <script src="~/inspinia-gh-pages/js/plugins/peity/jquery.peity.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="~/inspinia-gh-pages/js/inspinia.js"></script>
+    <script src="~/inspinia-gh-pages/js/plugins/pace/pace.min.js"></script>
+
+    <!-- iCheck -->
+    <script src="~/inspinia-gh-pages/js/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- Peity -->
+    <script src="~/inspinia-gh-pages/js/demo/peity-demo.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            $("form.navbar-form-custom").submit(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Get the search query from the input field
+                var searchQuery = $("#top-search").val();
+
+                // Perform the search (replace this with your actual search logic)
+                // For demonstration purposes, we'll just display an alert with the search query
+                alert("Performing search for: " + searchQuery);
+
+                // You can replace the alert with your actual search implementation
+                // For example, you can make an AJAX request to your server to fetch search results
+            });
+        });
+
+
+    </script>
+    @RenderSectionAsync("scripts")
+</body>
+
+</html>

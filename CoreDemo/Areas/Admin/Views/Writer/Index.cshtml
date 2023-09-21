@@ -1,0 +1,123 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h1>Writers with Ajax (Practice)</h1>
+<br />
+
+<button type="button" id="btngetlist" class="btn btn-outline-primary">Writers</button>
+<button type="button" id="btngetbyid" class="btn btn-outline-success">Get Writer</button>
+<button type="button" id="btnaddwriter" class="btn btn-outline-info">Add Writer</button>
+<button type="button" id="btndeletewriter" class="btn btn-outline-danger">Delete Writer</button>
+<button type="button" id="btnupdatewriter" class="btn btn-outline-warning">Update Writer</button>
+<div id="writerlist">
+    @*writers here*@
+</div>
+<br />
+<div id="writerbyid">
+</div> 
+
+<br />
+
+<div>
+    <input type="text" id="writerid" placeholder="Enter Writer ID" class="form-control" />
+</div>
+<br />
+
+<div>
+    <h2>Create new writer</h2>
+    <input type="text" class="form-control" id="txtwriterid" placeholder="Writer ID" />
+    <input type="text" class="form-control" id="writername" placeholder="Writer Name" />
+</div>
+
+<div>
+    <h2>Update the writer</h2>
+    <input type="text" class="form-control" id="txtupdateid" placeholder="Desired Writer ID To Update" />
+    <input type="text" class="form-control" id="txtupdatename" placeholder="Desired Writer Name To Update" />
+</div>
+@section scripts{
+    <script>
+        $("#btngetlist").click(function () {
+            $.ajax({
+                contentType: "application/json",
+                dataType: "json",
+                type: "Get",
+                url: "/Admin/Writer/WriterList/",
+                success: function (func) {
+                    let w = jQuery.parseJSON(func);
+                    let tablehtml = `<table class="table table-bordered"> <tr> <th>Writer ID</th> <th>Writer Name</th> </tr>`;
+                    $.each(w, (index, value) => {
+                        tablehtml += `<tr> <td>${value.Id}</td> <td>${value.Name}</td> </tr>`
+                    });
+                    tablehtml += "</table>";
+                    $("#writerlist").html(tablehtml);
+                }
+            })
+        });
+
+        $("#btngetbyid").click(x => {
+            let id = $("#writerid").val();
+            $.ajax({
+                contentType: "application/json",
+                dataType: "json",
+                type: "Get",
+                url: "/Admin/Writer/GetWriterById/",
+                data: { writerid: id },
+                success: function (func) {
+                    let w = jQuery.parseJSON(func);
+                    console.log(w);
+
+                    let getvalue = `<table class = "table table-bordered"> <tr> <th>Writer ID</th> <th>Writer Name</th> </tr> <tr> <td>${w.Id}</td> <td>${w.Name}</td> </tr> </table>`;
+                    $("#writerbyid").html(getvalue);
+                }
+            });
+
+        });
+
+        $("#btnaddwriter").click(function (){
+            let writer ={
+                Id: $("#txtwriterid").val(),
+                Name: $("#writername").val()
+            };
+            $.ajax({    
+                type: "post",
+                url: "/Admin/Writer/AddWriter/",
+                data: writer,
+                success: function (func) {
+                    let result = jQuery.parseJSON(func);
+                    alert("Writer successfully created."); 
+                }
+            });
+        });
+
+        $("#btndeletewriter").click(x=>{
+            let id = $("#writerid").val();
+            $.ajax({
+                url: "/Admin/Writer/DeleteWriter/" + id,
+                type: "Delete",
+                dataType: "json",
+                success: function (func) {
+                    alert(`Writer with id ${id} deleted.`)
+                }
+            });
+        });
+
+        $("#btnupdatewriter").click(function (){
+            let writer = {
+                Id: $("#txtupdateid").val(),
+                Name: $("#txtupdatename").val()
+            };
+
+            $.ajax({
+                type: "Put",
+                url: "/Admin/Writer/UpdateWriter",
+                data: writer,
+                success: function (func){
+                    alert("Writer updated.")
+                }
+            });
+        });
+    </script>
+
+}
