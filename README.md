@@ -4,4 +4,5 @@ and contribute informative articles on various technology topics. Users could re
 and share their own IT-related content. The platform catered to three distinct user roles: administrators,
 writers, and readers, fostering an engaging community dedicated to IT knowledge-sharing.
 
-# Tech Stack: C#, Asp Net Core 6.0, Entity Framework, MSSQL, HTML/CSS, Bootstrap, Ajax, JSON, Identity, API 
+# Tech Stack: 
+C#, Asp Net Core 6.0, Entity Framework, MSSQL, HTML/CSS, Bootstrap, Ajax, JSON, Identity, API 
